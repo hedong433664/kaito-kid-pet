@@ -1,0 +1,112 @@
+{
+  "name": "kaito-kid-pet",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:renderer\" \"npm:dev:electron\"",
+    "dev:renderer": "vite",
+    "dev:electron": "wait-on http-get://127.0.0.1:5174 && electron .",
+    "typecheck": "vue-tsc -b",
+    "build": "npm run typecheck && vite build",
+    "dist": "npm run build && node scripts/package.mjs",
+    "dist:win": "npm run build && node scripts/package.mjs --win",
+    "preview": "vite preview",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "dist:mac": "npm run build && node scripts/package.mjs --mac",
+    "dist:mac:arm64": "npm run build && node scripts/package.mjs --mac dmg zip --arm64",
+    "dist:mac:x64": "npm run build && node scripts/package.mjs --mac dmg zip --x64"
+  },
+  "dependencies": {
+    "vue": "^3.5.42"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vue/tsconfig": "^0.9.1",
+    "concurrently": "^10.0.6",
+    "electron": "^44.8.0",
+    "electron-builder": "^26.15.3",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0",
+    "vue-tsc": "^3.3.11",
+    "wait-on": "^9.5.1"
+  },
+  "description": "怪盗基德桌宠：绿幕透明变身动画、原声、Q 弹按压和抛物线分身",
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "com.kaitokid.pet",
+    "productName": "kaito-kid-pet",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json",
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "electron/tray.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "installerIcon": "electron/tray.ico",
+      "uninstallerIcon": "electron/tray.ico"
+    },
+    "mac": {
+      "category": "public.app-category.entertainment",
+      "artifactName": "${productName}-${version}-mac-${arch}.${ext}",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
+      "icon": "electron/app.icns"
+    },
+    "icon": "electron/tray.ico"
+  },
+  "keywords": [
+    "怪盗基德",
+    "桌宠",
+    "桌面宠物",
+    "变身",
+    "kaito-kid",
+    "desktop-pet",
+    "electron",
+    "vue"
+  ],
+  "license": "Apache-2.0",
+  "author": "hedong433664",
+  "homepage": "https://github.com/hedong433664/kaito-kid-pet#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hedong433664/kaito-kid-pet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hedong433664/kaito-kid-pet/issues"
+  }
+}

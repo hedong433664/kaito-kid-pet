@@ -1,0 +1,22 @@
+# Dependencies and generated artifacts
+node_modules/
+dist/
+release/
+artifacts/
+*.local
+*.log
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Python asset maintenance
+__pycache__/
+
+# Local secrets and signing credentials
+.env
+.env.*
+!.env.example
+*.p12
+*.pfx
+*.pem
